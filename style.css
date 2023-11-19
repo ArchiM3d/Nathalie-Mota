@@ -41,10 +41,10 @@ ol {
   list-style: none;
 }
 
-/*  body {
-  max-width: 1440px;
-  margin: 0 auto;
-} */
+body {
+  /*  max-width: 1440px;
+  margin: 0 auto; */
+}
 
 a {
   text-decoration: none;

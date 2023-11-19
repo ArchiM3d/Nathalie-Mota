@@ -1,3 +1,7 @@
+<?php
+
+defined('ABSPATH') or die('Aucun accès direct au script n\'est autorisé.'); ?>
+
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 
@@ -26,3 +30,4 @@
       )); ?>
     </nav>
   </header>
+  <main>

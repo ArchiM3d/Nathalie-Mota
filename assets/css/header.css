@@ -5,6 +5,7 @@ header {
   justify-content: space-between;
   padding: 0 145px;
   box-shadow: 0px 4px 14px 10px rgba(0, 0, 0, 0.03);
+  background: rgba(255, 255, 255, 1);
 }
 
 .logo img {
@@ -20,7 +21,9 @@ header nav ul li a {
   letter-spacing: 0em;
   text-align: left;
   color: rgba(0, 0, 0, 1);
+  text-transform: uppercase;
 }
+
 .header-menu-container {}
 
 .header-menu {

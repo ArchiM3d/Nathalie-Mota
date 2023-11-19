@@ -1,6 +1,7 @@
 footer {
   height: 40px;
   border-top: 1px solid rgba(0, 0, 0, 1);
+  background: rgba(255, 255, 255, 1);
 }
 
 .menu-footer-container {
@@ -30,4 +31,5 @@ footer div ul li a {
   letter-spacing: 0em;
   text-align: left;
   color: rgba(0, 0, 0, 1);
+  text-transform: uppercase;
 }
