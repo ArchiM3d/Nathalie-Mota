@@ -1,0 +1,33 @@
+footer {
+  height: 40px;
+  border-top: 1px solid rgba(0, 0, 0, 1);
+}
+
+.menu-footer-container {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer-menu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 80px;
+  height: fit-content;
+}
+
+footer div ul li {
+  height: auto;
+}
+
+footer div ul li a {
+  font-family: Space Mono;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: rgba(0, 0, 0, 1);
+}
