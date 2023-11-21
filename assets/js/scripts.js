@@ -1,7 +1,7 @@
 (function ($) {
   $(document).ready(function ($) {
     const contact_modal = $('#contact-modal');
-    const open_modal_button = $('#open-modal-button');
+    const open_modal_button = $('.open-modal-button');
 
     function toggleModal() {
       contact_modal.fadeToggle();
@@ -11,6 +11,7 @@
 
     open_modal_button.on('click', function (event) {
       event.preventDefault(); // Empêcher le lien de suivre le href
+      console.log('click');
       toggleModal();
     });
 

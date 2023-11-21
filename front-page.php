@@ -23,12 +23,9 @@ get_header(); ?>
     if ($custom_query->have_posts()) :
       while ($custom_query->have_posts()) : $custom_query->the_post(); ?>
         <div class="card-photos">
-          <?php
-          // Afficher l'image à la une (thumbnail) liée à l'article
-          if (has_post_thumbnail()) {
-            the_post_thumbnail('thumbnail'); // Vous pouvez choisir la taille de l'image (thumbnail, medium, large, etc.)
-          }
-          ?>
+          <?php if (has_post_thumbnail()) :
+            the_post_thumbnail('card-photo', array('class' => 'card-photo-thumbnail'));
+          endif; ?>
           <div class="overlay">
             <a href="#"><i class="fa fa-expand"></i></a>
             <a href="<?php the_permalink(); ?>"><i class="fa fa-eye"></i></a>
@@ -39,12 +36,12 @@ get_header(); ?>
               <div class="right">
                 <?php $terms = get_the_terms(get_the_ID(), 'categorie');
 
-                if ($terms && !is_wp_error($terms)) {
+                if ($terms && !is_wp_error($terms)) :
                   echo 'Catégorie : ';
-                  foreach ($terms as $term) {
+                  foreach ($terms as $term) :
                     echo '<a href="' . esc_url(get_term_link($term)) . '">' . esc_html($term->name) . '</a> ';
-                  }
-                } ?>
+                  endforeach;
+                endif; ?>
               </div>
             </div>
           </div>
