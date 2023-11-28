@@ -15,10 +15,11 @@
   border: 5px solid rgba(0, 0, 0, 1);
   margin: auto;
   background: rgba(255, 255, 255, 1);
+  overflow: hidden;
 }
 
 .contact-line-header {
-  background-image: url('../images/Contact.svg');
+  background-image: url('../images/Icons/Contact.svg');
   display: block;
   width: 885px;
   height: 98px;
@@ -38,13 +39,22 @@ form.wpcf7-form {
   display: flex;
   flex-direction: column;
   align-content: center;
-  justify-content: flex-end;
+  justify-content: space-around;
   flex-wrap: wrap;
-  align-items: stretch;
   gap: 24px;
   height: 100%;
   max-width: 263px;
   margin: auto;
+  align-items: center;
+}
+
+.wpcf7-form label {
+  font-family: Poppins;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 18px;
+  letter-spacing: 0em;
+  text-transform: uppercase;
 }
 
 .wpcf7-response-output {

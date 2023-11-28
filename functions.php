@@ -2,6 +2,8 @@
 
 defined('ABSPATH') or die('Aucun accès direct au script n\'est autorisé.');
 
+add_filter('wpcf7_autop_or_not', '__return_false');
+
 function enqueue_motaphoto_styles_and_scripts()
 {
   wp_enqueue_style('motaphoto-style', get_stylesheet_uri(), array(), false);

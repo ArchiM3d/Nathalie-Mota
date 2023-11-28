@@ -42,12 +42,13 @@ ol {
 }
 
 body {
-  /*  max-width: 1440px;
-  margin: 0 auto; */
+  max-width: 1440px;
+  margin: 0 auto;
 }
 
 a {
   text-decoration: none;
+  color: inherit;
 }
 
 h1,

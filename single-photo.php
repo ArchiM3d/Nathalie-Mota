@@ -2,16 +2,18 @@
 
 defined('ABSPATH') or die('Aucun accès direct au script n\'est autorisé.');
 
-$meta_refrence = get_post_meta(get_the_ID(), 'reference', true);
+$current_post_id = get_the_ID();
 
-$term_categories = get_the_terms(get_the_ID(), 'categorie');
+$meta_refrence = get_post_meta($current_post_id, 'reference', true);
+
+$term_categories = get_the_terms($current_post_id, 'categorie');
 if (!empty($term_categories)) :
   foreach ($term_categories as $term_categorie) :
     $link_term_categorie = '<a href="' . esc_url(get_term_link($term_categorie)) . '">' . esc_html($term_categorie->name) . '</a> ';
   endforeach;
 endif;
 
-$term_formats = get_the_terms(get_the_ID(), 'format');
+$term_formats = get_the_terms($current_post_id, 'format');
 if (!empty($term_formats)) :
   foreach ($term_formats as $term_format) :
     $link_term_format = '<a href="' . esc_url(get_term_link($term_format)) . '">' . esc_html($term_format->name) . '</a> ';
@@ -21,7 +23,6 @@ endif;
 get_header(); ?>
 
 <div class="page-content">
-
   <?php if (have_posts()) : ?>
     <?php while (have_posts()) : the_post(); ?>
       <div class="photo-container">
@@ -32,15 +33,18 @@ get_header(); ?>
           'term_formats' => $term_formats,
           'link_term_format' => $link_term_format,
         );
-        get_template_part('templates_parts/single-photo-details', null, $data_photo_single_args); ?>
+        get_template_part('templates_parts/single/single-photo-details', null, $data_photo_single_args); ?>
       </div>
     <?php endwhile; ?>
+
     <div class="nav-single-photo">
-      <p>Cette photo vous intéresse ?</p>
-      <button id="open-modal-button" class="CTA">Contact</button>
+      <div class="nav-contact">
+        <p>Cette photo vous intéresse ?</p>
+        <button id="open-modal-button" class="CTA">Contact</button>
+      </div>
       <div class="nav-card">
         <div class="nav-card-photo">
-          <img src="<?php echo get_stylesheet_directory_uri() . './assets/images/nathalie-0.png' ?>" alt="">
+          <img src="<?php echo get_stylesheet_directory_uri() . './assets/images/photos/nathalie-0.png' ?>" alt="">
         </div>
         <div class="nav-arrow">
           <a href="#" class="arrow-left">
@@ -58,11 +62,26 @@ get_header(); ?>
             </span>
           </a>
         </div>
+      </div>
     </div>
-</div>
-<?php else :
+
+    <?php $data_single_prop_args = array(
+      'current_post_id' => $current_post_id,
+    );
+    get_template_part('templates_parts/single/single-photo-propositions', null, $data_single_prop_args); ?>
+
+  <?php else :
     echo 'Aucun article trouvé.';
   endif; ?>
 </div>
 
 <?php get_footer(); ?>
+
+<?php
+/* 
+  $data_single_nav_args = array(
+    'meta_refrence' => $meta_refrence,
+  );
+  get_template_part('templates_parts/single/single-photo-navigation', null, $data_single_nav_args);  
+*/
+?>

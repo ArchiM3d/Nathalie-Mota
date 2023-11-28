@@ -3,10 +3,14 @@
     const contact_modal = $('#contact-modal');
     const open_modal_button = $('.open-modal-button');
 
+    modalToggleFunc(contact_modal, open_modal_button);
+  });
+
+  function modalToggleFunc(contact_modal, open_modal_button) {
     function toggleModal() {
       contact_modal.fadeToggle();
     }
-    
+
     contact_modal.hide();
 
     open_modal_button.on('click', function (event) {
@@ -26,5 +30,5 @@
         toggleModal();
       }
     });
-  });
+  }
 })(jQuery);
