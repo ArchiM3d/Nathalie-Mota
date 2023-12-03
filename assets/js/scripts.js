@@ -2,14 +2,35 @@
   $(document).ready(function ($) {
     const contact_modal = $('#contact-modal');
     const open_modal_button = $('.open-modal-button');
+    const reference = WP_DATA.meta_refrence;
 
-    modalToggleFunc(contact_modal, open_modal_button);
+    const body = $('body');
+    const navMenu = $('.nav-menu');
+    const menuToggle = $('.menu-toggle');
+    const menuContent = $('.header-menu');
+
+    menuToggle.on('click', function () {
+      menuToggle.toggleClass('menu-active');
+      navMenu.toggleClass('menu-active');
+
+      // Basculer overflow hidden pour body
+      if (body.css('overflow') === 'hidden') {
+        body.css('overflow', 'auto');
+      } else {
+        body.css('overflow', 'hidden');
+      }
+    });
+
+    modalToggleFunc(reference, contact_modal, open_modal_button);
+
+    navHoverArrowPhoto();
   });
 
-  function modalToggleFunc(contact_modal, open_modal_button) {
+  function modalToggleFunc(reference, contact_modal, open_modal_button) {
     function toggleModal() {
       contact_modal.fadeToggle();
     }
+    $('#ref-photo').val(reference);
 
     contact_modal.hide();
 
@@ -30,5 +51,32 @@
         toggleModal();
       }
     });
+  }
+
+
+  function navHoverArrowPhoto() {
+    const nav_img_prev = WP_DATA.prev_thumbnail_url;
+    const nav_img_next = WP_DATA.next_thumbnail_url;
+    // Lors du survol de la flèche gauche
+    $('.arrow-left').hover(
+      //In
+      function () {
+        $('.nav-card-photo img').attr('src', nav_img_prev);
+      },
+      // Out
+      function () {
+        $('.nav-card-photo img').attr('src', nav_img_prev);
+      }
+    );
+
+    // Lors du survol de la flèche droite
+    $('.arrow-right').hover(
+      function () {
+        $('.nav-card-photo img').attr('src', nav_img_next);
+      },
+      function () {
+        $('.nav-card-photo img').attr('src', nav_img_next);
+      }
+    );
   }
 })(jQuery);

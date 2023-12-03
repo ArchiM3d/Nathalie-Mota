@@ -33,3 +33,25 @@ footer div ul li a {
   color: rgba(0, 0, 0, 1);
   text-transform: uppercase;
 }
+
+@media (max-width: 768px) {
+  footer {
+    height: auto;
+    border-top: 1px solid rgba(0, 0, 0, 1);
+    background: rgba(255, 255, 255, 1);
+  }
+
+  .menu-footer-container {
+    padding: 40px 0;
+  }
+
+  .footer-menu {
+    width: auto;
+    height: min-content;
+    flex-direction: column;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    align-content: center;
+    gap: 20px;
+  }
+}

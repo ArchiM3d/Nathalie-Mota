@@ -15,6 +15,19 @@ function enqueue_motaphoto_styles_and_scripts()
   wp_enqueue_style('motaphoto-typo', get_stylesheet_directory_uri() . '/assets/css/typo.css', array('motaphoto-style'), false);
 
   wp_enqueue_script('motaphoto-scripts', get_template_directory_uri() . '/assets/js/scripts.js', array('jquery'), '1.0', true);
+
+  $meta_refrence = get_post_meta(get_the_ID(), 'reference', true);
+  $prev_post = get_previous_post();
+  $next_post = get_next_post();
+  $prev_thumbnail_url = $prev_post ? get_the_post_thumbnail_url($prev_post->ID, 'card-photo') : 'path/to/default/image.jpg';
+  $next_thumbnail_url = $next_post ? get_the_post_thumbnail_url($next_post->ID, 'card-photo') : 'path/to/default/image.jpg';
+
+  wp_localize_script('motaphoto-scripts', 'WP_DATA', array(
+    'ajaxUrl' => admin_url('admin-ajax.php'),
+    'meta_refrence' => esc_js($meta_refrence),
+    'prev_thumbnail_url' => esc_js($prev_thumbnail_url),
+    'next_thumbnail_url' => esc_js($next_thumbnail_url),
+  ));
 }
 add_action('wp_enqueue_scripts', 'enqueue_motaphoto_styles_and_scripts');
 
@@ -46,13 +59,3 @@ function motaphoto_setup()
   add_image_size('card-photo', 564, 495, true);
 }
 add_action('after_setup_theme', 'motaphoto_setup');
-
-/* 
-function add_contact_modal_to_header_menu($items, $args)
-{
-  if ($args->theme_location == 'header-menu') {
-    $items .= '<li><a id="open-modal-button" href="#contact-modal">Contact</a></li>';
-  }
-  return $items;
-}
-add_filter('wp_nav_menu_items', 'add_contact_modal_to_header_menu', 10, 2); */

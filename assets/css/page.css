@@ -7,4 +7,5 @@
   align-content: center;
   justify-content: space-between;
   align-items: flex-end;
+  padding: 0 10vw;
 }

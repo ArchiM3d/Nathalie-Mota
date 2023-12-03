@@ -75,5 +75,5 @@ $argsPost = array(
 
     wp_reset_postdata(); ?>
   </div>
-  <button id="open-modal-button" class="CTA">Toutes les photos</button>
+  <button id="go-all-photos" class="CTA">Toutes les photos</button>
 </div>

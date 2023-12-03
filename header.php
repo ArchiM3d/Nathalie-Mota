@@ -23,11 +23,16 @@ defined('ABSPATH') or die('Aucun accès direct au script n\'est autorisé.'); ?>
         echo '<h1>' . get_bloginfo('name') . '</h1>';
       endif; ?>
     </div>
-    <nav>
+    <nav class="nav-menu">
       <?php wp_nav_menu(array(
         'theme_location' => 'header-menu', // Utilisez le nom de l'emplacement du menu déclaré dans votre thème
         'menu_class' => 'header-menu', // Classe CSS pour le menu
       )); ?>
     </nav>
+    <button class="menu-toggle">
+      <span class="menu-bar"></span>
+      <span class="menu-bar"></span>
+      <span class="menu-bar"></span>
+    </button>
   </header>
   <main>
