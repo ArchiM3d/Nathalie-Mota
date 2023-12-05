@@ -1,58 +1,55 @@
 <?php
 defined('ABSPATH') or die('Aucun accès direct au script n\'est autorisé.');
 
-get_header(); ?>
 
-<div>
-  HERO
+$argsHero = array(
+  'post_type'      => 'photo',
+  'posts_per_page' => -1,
+);
+$hero_query = new WP_Query($argsHero);
+if ($hero_query->have_posts()) {
+  $random_photo_key = array_rand($hero_query->posts);
+  $random_photo = $hero_query->posts[$random_photo_key];
+
+  $random_photo_url = get_the_post_thumbnail_url($random_photo->ID, 'full');
+  $random_photo_title = get_the_title($random_photo->ID);
+}
+
+$argsListe = array(
+  'post_type' => 'photo',
+  'posts_per_page' => 8,
+);
+
+get_header();
+?>
+
+<div class="header-hero" style="background-image: url('<?php echo esc_url($random_photo_url); ?>');">
+  <h1><?php echo esc_html($random_photo_title); ?></h1>
 </div>
+
 <div class="page-content">
-  <div class="search-bar">
-    Zone Trie
-  </div>
-  <div class="grid-photos">
-    Liste des photos
-    <?php
-    $args = array(
-      'post_type' => 'photo', // Remplacez 'photo' par le nom de votre type de contenu personnalisé
-      'posts_per_page' => -1, // Afficher tous les articles
+
+  <form class="search-bar" action="">
+    <div class="filtres">
+      <select name="" id="">
+        <option value="">Catégories</option>
+      </select>
+      <select name="" id="">
+        <option value="">Formats</option>
+      </select>
+    </div>
+    <select name="" id="">
+      <option value="">Triés par</option>
+    </select>
+  </form>
+
+  <div class="category-nav">
+    <?php $card_photo_args = array(
+      'args' => $argsListe
     );
+    get_template_part('templates_parts/utils/card-photo', null, $card_photo_args); ?>
 
-    $custom_query = new WP_Query($args);
-
-    if ($custom_query->have_posts()) :
-      while ($custom_query->have_posts()) : $custom_query->the_post(); ?>
-        <div class="card-photos">
-          <?php if (has_post_thumbnail()) :
-            the_post_thumbnail('card-photo', array('class' => 'card-photo-thumbnail'));
-          endif; ?>
-          <div class="overlay">
-            <a href="#"><i class="fa fa-expand"></i></a>
-            <a href="<?php the_permalink(); ?>"><i class="fa fa-eye"></i></a>
-            <div class="footer-card">
-              <div class="left">
-                <?php echo get_post_meta(get_the_ID(), 'reference', true); ?>
-              </div>
-              <div class="right">
-                <?php $terms = get_the_terms(get_the_ID(), 'categorie');
-
-                if ($terms && !is_wp_error($terms)) :
-                  echo 'Catégorie : ';
-                  foreach ($terms as $term) :
-                    echo '<a href="' . esc_url(get_term_link($term)) . '">' . esc_html($term->name) . '</a> ';
-                  endforeach;
-                endif; ?>
-              </div>
-            </div>
-          </div>
-        </div>
-    <?php endwhile;
-    else :
-      echo 'Aucun article trouvé.';
-    endif;
-
-    wp_reset_postdata();
-    ?>
+    <button id="charge-all-photos" class="CTA">Charger plus</button>
   </div>
 </div>
 <?php get_footer();

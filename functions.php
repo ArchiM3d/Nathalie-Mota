@@ -11,8 +11,10 @@ function enqueue_motaphoto_styles_and_scripts()
   wp_enqueue_style('motaphoto-footer', get_stylesheet_directory_uri() . '/assets/css/footer.css', array('motaphoto-style'), false);
   wp_enqueue_style('motaphoto-modal', get_stylesheet_directory_uri() . '/assets/css/modal.css', array('motaphoto-style'), false);
   wp_enqueue_style('motaphoto-page', get_stylesheet_directory_uri() . '/assets/css/page.css', array('motaphoto-style'), false);
+  wp_enqueue_style('motaphoto-front-page', get_stylesheet_directory_uri() . '/assets/css/front-page.css', array('motaphoto-style'), false);
   wp_enqueue_style('motaphoto-single', get_stylesheet_directory_uri() . '/assets/css/single.css', array('motaphoto-style'), false);
   wp_enqueue_style('motaphoto-typo', get_stylesheet_directory_uri() . '/assets/css/typo.css', array('motaphoto-style'), false);
+  wp_enqueue_style('motaphoto-utils', get_stylesheet_directory_uri() . '/assets/css/utils.css', array('motaphoto-style'), false);
 
   wp_enqueue_script('motaphoto-scripts', get_template_directory_uri() . '/assets/js/scripts.js', array('jquery'), '1.0', true);
 
@@ -59,3 +61,26 @@ function motaphoto_setup()
   add_image_size('card-photo', 564, 495, true);
 }
 add_action('after_setup_theme', 'motaphoto_setup');
+
+function load_all_photos()
+{
+/**
+ * charge 12 par 12
+ * Masque le bouton
+ */
+
+  $argsLoad = array(
+    'post_type' => 'photo',
+    'posts_per_page' => -1,
+  );
+
+  $card_photo_args = array(
+    'args' => $argsLoad,
+  );
+  get_template_part('templates_parts/utils/card-photo', null, $card_photo_args);
+
+  wp_reset_postdata();
+  die();
+}
+add_action('wp_ajax_load_all_photos', 'load_all_photos');
+add_action('wp_ajax_nopriv_load_all_photos', 'load_all_photos');

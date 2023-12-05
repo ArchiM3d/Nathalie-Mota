@@ -1,3 +1,18 @@
 /* .overflow-hidden {
   overflow: hidden;
 } */
+
+.row-wrap {
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.f-basis-49 {
+  flex-basis: 49%;
+}
+
+@media (max-width: 768px) {
+  .f-basis-49 {
+    flex-basis: 100%;
+  }
+}

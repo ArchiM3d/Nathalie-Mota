@@ -7,7 +7,6 @@
     const body = $('body');
     const navMenu = $('.nav-menu');
     const menuToggle = $('.menu-toggle');
-    const menuContent = $('.header-menu');
 
     menuToggle.on('click', function () {
       menuToggle.toggleClass('menu-active');
@@ -24,6 +23,23 @@
     modalToggleFunc(reference, contact_modal, open_modal_button);
 
     navHoverArrowPhoto();
+
+
+    $('#charge-all-photos').on('click', function (e) {
+      e.preventDefault();
+
+      $.ajax({
+        url: WP_DATA.ajaxUrl,
+        type: 'POST',
+        data: {
+          action: 'load_all_photos', // Le nom de l'action dans WordPress
+        },
+        success: function (response) {
+          // Ajouter la réponse à votre conteneur d'affichage
+          $('.category-nav').html(response);
+        }
+      });
+    });
   });
 
   function modalToggleFunc(reference, contact_modal, open_modal_button) {
@@ -52,7 +68,6 @@
       }
     });
   }
-
 
   function navHoverArrowPhoto() {
     const nav_img_prev = WP_DATA.prev_thumbnail_url;
