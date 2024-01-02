@@ -19,11 +19,11 @@
 }
 
 .contact-line-header {
-  background-image: url('../images/Icons/Contact.svg');
+  background-image: url('../images/Contact header.png');
+  background-size: cover;
   display: block;
-  width: 885px;
-  height: 98px;
-  margin-left: -25%;
+  width: 885.96px;
+  height: 106.05px;
 }
 
 .modal-content {
@@ -41,7 +41,6 @@ form.wpcf7-form {
   align-content: center;
   justify-content: space-around;
   flex-wrap: wrap;
-  gap: 24px;
   height: 100%;
   max-width: 263px;
   margin: auto;
@@ -90,4 +89,15 @@ input.wpcf7-form-control.wpcf7-submit {
   font-weight: 400;
   line-height: 18px;
   letter-spacing: 0em;
+}
+
+@media (max-width: 768px) {
+  #contact-modal {
+    z-index: 99;
+  }
+
+  .contact-modal-content {
+    width: 90%;
+    height: 90%;
+  }
 }

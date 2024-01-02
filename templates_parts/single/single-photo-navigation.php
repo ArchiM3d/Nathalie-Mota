@@ -16,7 +16,7 @@ $next_thumbnail_url = $next_post ? get_the_post_thumbnail_url($next_post->ID, 'c
   </div>
   <div class="nav-card">
     <div class="nav-card-photo">
-      <img src="<?php echo get_stylesheet_directory_uri() . './assets/images/Placeholder img.png' ?>" alt="">
+      <img src="" alt="Image" style="display: none;">
     </div>
     <div class="nav-arrow">
       <?php if (!empty($prev_post)) : ?>

@@ -10,26 +10,37 @@ $category_ids = array();
 foreach ($term_categories as $term) {
   $category_ids[] = $term->term_id;
 }
-$argsPost = array(
-  'post_type' => 'photo', // Custom post type photo
-  'posts_per_page' => 2, // 2 articles max
-  'orderby' => 'rand', // Proposition aléatoire
-  'post__not_in' => array(get_the_ID()), // Enleve le post actuel des proposition
-  'tax_query' => array(
-    array(
-      'taxonomy' => 'categorie',
-      'field'    => 'term_id',
-      'terms'    => $category_ids,
-    ), // seulement de la taxonomy personalisé 'categorie' 
-  ),
-); ?>
+?>
 
 <div class="category-nav">
   <h3>Vous aimerez AUSSI</h3>
-    <?php $card_photo_args = array(
-      'args' => $argsPost,
+  <div class="card-grid">
+    <?php
+    $argsPost = array(
+      'post_type' => 'photo', // Custom post type photo
+      'posts_per_page' => 2, // 2 articles max
+      'orderby' => 'rand', // Proposition aléatoire
+      'post__not_in' => array(get_the_ID()), // Enleve le post actuel des proposition
+      'tax_query' => array(
+        array(
+          'taxonomy' => 'categorie',
+          'field'    => 'term_id',
+          'terms'    => $category_ids,
+        ), // seulement de la taxonomy personalisé 'categorie' 
+      ),
     );
-    get_template_part('templates_parts/utils/card-photo', null, $card_photo_args); ?>
-    
-  <button id="go-all-photos" class="CTA">Toutes les photos</button>
+
+    $custom_query = new WP_Query($argsPost);
+
+    if ($custom_query->have_posts()) :
+      while ($custom_query->have_posts()) : $custom_query->the_post();
+        get_template_part('templates_parts/utils/card-photo');
+      endwhile;
+    else :
+      echo 'Aucun article trouvé.';
+    endif;
+    wp_reset_postdata(); ?>
+  </div>
+
+  <button id="go-all-photos" onclick="window.location.href='<?php echo home_url(); ?>';" class="CTA">Toutes les photos</button>
 </div>

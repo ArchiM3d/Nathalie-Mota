@@ -7,6 +7,7 @@
   align-content: center;
   width: 100%;
   margin-top: 35px;
+  box-sizing: content-box;
 }
 
 .photo-container-details {
@@ -63,6 +64,7 @@
   font-weight: 400;
   line-height: 18px;
   letter-spacing: 0em;
+  cursor: pointer;
 }
 
 .CTA:hover {
@@ -107,13 +109,20 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 50px;
-  padding: 50px 0;
   align-items: center;
 }
 
 .category-nav h3 {
   width: 100%;
+  margin: 50px 0;
+}
+
+button.CTA#charge-all-photos {
+  margin: 50px 0;
+}
+
+button.CTA#go-all-photos {
+  margin: 50px 0;
 }
 
 .card-grid {
@@ -126,9 +135,7 @@
 
 .photo-card {
   width: 49%;
-  height: auto;
-  min-height: 280px;
-  max-height: 500px;
+  height: 500px;
   position: relative;
   overflow: hidden;
 }
@@ -216,7 +223,7 @@ p.left {
   display: block;
 }
 
-a.right {
+p.right {
   position: absolute;
   display: none;
   right: 10px;
@@ -228,10 +235,9 @@ a.right {
   line-height: 21px;
   letter-spacing: 0.1em;
   text-align: right;
-  z-index: 2;
 }
 
-.photo-card:hover a.right {
+.photo-card:hover p.right {
   display: block;
 }
 
@@ -286,7 +292,11 @@ a.linkCard {
     padding: 0 10%;
   }
 
-  .photo-container-details,
+  .photo-container-details {
+    width: auto;
+    margin-top: 20px;
+  }
+
   .featured-image {
     width: auto;
   }
@@ -305,10 +315,11 @@ a.linkCard {
   .category-nav h3 {
     width: auto;
     text-align: center;
+    margin: 25px 0;
   }
 
   .category-nav {
-    padding: 50px 30px;
+    padding: 0 30px;
   }
 
   .card-grid {
@@ -320,12 +331,11 @@ a.linkCard {
 
   .photo-card {
     width: 100%;
-    height: 100%;
+    height: auto;
   }
 
   .img-container {
     width: 100%;
-    min-width: 317px;
     height: 278px;
   }
 }

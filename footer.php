@@ -3,6 +3,7 @@
 defined('ABSPATH') or die('Aucun accès direct au script n\'est autorisé.'); ?>
 
 <?php get_template_part('templates_parts/modal-contact'); ?>
+<?php get_template_part('templates_parts/utils/lightbox'); ?>
 </main>
 
 <footer>

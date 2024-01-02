@@ -24,7 +24,7 @@ header nav ul li a {
   text-transform: uppercase;
 }
 
-.header-menu {
+.nav-menu-desktop .menu-header-container .header-menu {
   display: flex;
   gap: 45px;
 }
@@ -59,36 +59,65 @@ header nav ul li a {
   transform: translateY(-8px) rotate(-45deg);
 }
 
+@media (min-width: 769px) {
+  .nav-menu-mobile {
+    display: none;
+  }
+
+  .menu-toggle {
+    display: none;
+  }
+}
+
+/* Styles spécifiques pour les appareils mobiles */
 @media (max-width: 768px) {
   .menu-toggle {
     display: block;
+    /* Affiche le bouton sur les appareils mobiles */
   }
 
-  .menu-header-container {
-    position: absolute;
-    display: flex;
-    top: 80px;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 99;
-  }
-
-  .nav-menu .header-menu {
+  .nav-menu-desktop {
     display: none;
+    /* Masque le menu desktop sur les appareils mobiles */
+  }
+
+  .nav-menu-mobile {
+    display: none;
+    /* Masqué par défaut, s'affiche lorsqu'activé */
     width: 100%;
     height: 100%;
     background: rgba(224, 0, 0, 1);
+    position: absolute;
+    top: 80px;
+    left: 0;
+    z-index: 99;
   }
 
-  .nav-menu.menu-active .header-menu {
+  .nav-menu-mobile .menu-header-container {
+    width: 100%;
+    height: 100%;
+  }
+
+  .nav-menu-mobile.menu-active {
     display: flex;
+    /* Affiche le menu mobile lorsqu'il est actif */
     flex-direction: column;
     justify-content: center;
     align-items: center;
   }
 
-  header nav.menu-active ul li a {
+  .nav-menu-mobile .header-menu {
+    width: 100%;
+    height: 100%;
+    background: rgba(224, 0, 0, 1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 18px;
+  }
+
+  .nav-menu-mobile .header-menu li.menu-item a {
     font-family: Space Mono;
     font-size: 44px;
     font-weight: 400;
