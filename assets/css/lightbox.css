@@ -76,7 +76,7 @@
   color: white;
   cursor: pointer;
 
-  font-family: Space Mono;
+  font-family: 'Space Mono', monospace;
   font-size: 12px;
   font-weight: 400;
   letter-spacing: 0em;
@@ -114,7 +114,7 @@
 .lightbox-footer-right {
   flex: 1;
 
-  font-family: Poppins;
+  font-family: 'Poppins', sans-serif;
   font-size: 14px;
   font-weight: 500;
   line-height: 21px;

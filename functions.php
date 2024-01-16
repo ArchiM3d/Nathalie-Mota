@@ -30,6 +30,10 @@ function enqueue_motaphoto_styles_and_scripts()
   ));
 
   wp_enqueue_style('motaphoto-lightbox-style', get_stylesheet_directory_uri() . '/assets/css/lightbox.css', array('motaphoto-style'), false);
+
+
+  wp_enqueue_style('poppins-font', 'https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap', array(), false, 'all');
+  wp_enqueue_style('poppins-font', 'https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap', array(), false, 'all');
 }
 add_action('wp_enqueue_scripts', 'enqueue_motaphoto_styles_and_scripts');
 

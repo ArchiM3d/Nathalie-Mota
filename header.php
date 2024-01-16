@@ -10,6 +10,8 @@ defined('ABSPATH') or die('Aucun accès direct au script n\'est autorisé.'); ?>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><?php bloginfo('name'); ?> | <?php is_front_page() ? bloginfo('description') : wp_title(''); ?></title>
   <?php wp_head(); ?>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 </head>
 
 <body <?php body_class(); ?>>

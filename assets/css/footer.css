@@ -24,7 +24,7 @@ footer div ul li {
 }
 
 footer div ul li a {
-  font-family: Space Mono;
+  font-family: 'Space Mono', monospace;
   font-size: 16px;
   font-weight: 400;
   line-height: 24px;

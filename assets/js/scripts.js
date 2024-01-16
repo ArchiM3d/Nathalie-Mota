@@ -47,21 +47,64 @@
   }
 
   function initPhotoChargement() {
-    $('#filter-form select').on('change', function () {
+    $('.custom-select').click(function () {
+      var selectFiltre = '#' + $(this).attr('id');
+      var optionsFiltre = selectFiltre.split('-')[0] + '-options';
+      var widthSelect = $(selectFiltre).width();
+      var heightSelect = $(selectFiltre).height();
+      var selectPos = $(selectFiltre).position();
+
+      var topOffsetOption = (selectPos.top + (heightSelect + 2));
+      var leftOffsetOption = (selectPos.left);
+
+      $(optionsFiltre).width(widthSelect);
+      $(optionsFiltre).css({ top: topOffsetOption, left: leftOffsetOption }).toggle();
+
+      $(selectFiltre).toggleClass('open');
+    });
+
+    // Stocker le texte par défaut de chaque sélecteur dans un attribut data
+    $('.custom-select').each(function () {
+      var defaultText = $(this).find('.selected').text();
+      $(this).data('default-text', defaultText);
+    });
+
+    $('.options li').click(function () {
+      var value = $(this).data('value');
+      var optionsId = $(this).closest('.options').attr('id');
+      var selectFiltre = '#' + optionsId.replace('-options', '-select');
+  
+      // Vérifier si l'option cliquée est l'option vide
+      if (value === '') {
+        // Récupérer et utiliser le texte par défaut du sélecteur
+        var defaultText = $(selectFiltre).data('default-text');
+        $(selectFiltre).find('.selected').text(defaultText);
+        // Mettre à jour la valeur par défaut pour les requêtes
+        $(selectFiltre).find('.selected').data('value', '');
+      } else {
+        // Sinon, utiliser le texte de l'option cliquée
+        $(selectFiltre).find('.selected').text($(this).text()).data('value', value);
+      }
+  
+      // Fermer le menu d'options et charger les photos
+      $(this).parent().hide();
       $('#charge-all-photos').data('page', 1);
       chargerAjax(1);
+  
+      // Enlever la classe 'open' du sélecteur
+      $(selectFiltre).removeClass('open');
     });
 
     $('#charge-all-photos').on('click', function () {
-      var page = $(this).data('page') + 1;
-      $(this).data('page', page);
-      chargerAjax(page);
+      var nextPage = $(this).data('page') + 1;
+      $(this).data('page', nextPage);
+      chargerAjax(nextPage);
     });
 
     function chargerAjax(page) {
-      const categorie = $('#categorie-select').val() || '';
-      const format = $('#format-select').val() || '';
-      const order = $('#order-select').val() || '';
+      const categorie = $('#categorie-select .selected').data('value') || '';
+      const format = $('#format-select .selected').data('value') || '';
+      const order = $('#order-select .selected').data('value') || '';
 
       $.ajax({
         url: WP_DATA.ajaxUrl,
@@ -81,13 +124,13 @@
           }
 
           if ($.trim(response) === '') {
-            // Gestion du message et du bouton
             $('#message-photos').html('<p>Toutes les photos sont là.</p>').show();
             $('#charge-all-photos').hide();
           } else {
             $('#message-photos').hide();
             $('#charge-all-photos').show();
           }
+          initLightBox();
         }
       });
     }
@@ -98,31 +141,9 @@
     var lightboxPhotoContent = $('#lightbox-photo-content');
     var lightboxFooterLeft = $('.lightbox-footer-left');
     var lightboxFooterRight = $('.lightbox-footer-right');
-    var allPhotos = $('.photo-card');
-
-    var allPhotosData = updateAllPhotosData();
-
-    $('.card-grid').on('click', '.topRightIcon', function (e) {
-      e.preventDefault();
-      allPhotosData = updateAllPhotosData();
-      var currentCard = $(this).closest('.photo-card');
-      var currentIndex = allPhotos.index(currentCard);
-      updateLightbox(currentIndex);
-      lightbox.fadeIn(300);
-    });
-
-    $('#lightbox-prev, #lightbox-next').on('click', function () {
-      updateLightbox($(this).data('index'));
-    });
-
-    lightbox.find('#lightbox-close, .lightbox-overlay').on('click', function () {
-      lightbox.fadeOut(300);
-      lightboxPhotoContent.fadeOut(300);
-      lighlightboxFooterLefttbox.fadeOut(300);
-      lightboxFooterRight.fadeOut(300);
-    });
 
     function updateAllPhotosData() {
+      var allPhotos = $('.photo-card');
       return allPhotos.map(function () {
         return {
           imgSrc: $(this).find('.img-container img').attr('src'),
@@ -132,7 +153,31 @@
       }).get();
     }
 
-    function updateLightbox(index) {
+    var allPhotosData = updateAllPhotosData();
+
+    $('.card-grid').off('click').on('click', '.topRightIcon', function (e) {
+      e.preventDefault();
+      allPhotosData = updateAllPhotosData();
+      var currentCard = $(this).closest('.photo-card');
+      var currentIndex = $('.photo-card').index(currentCard);
+      updateLightbox(allPhotosData, currentIndex);
+      lightbox.fadeIn(300);
+    });
+
+    // Gestionnaires d'événements pour les boutons Précédent et Suivant
+    $('#lightbox-prev, #lightbox-next').off('click').on('click', function () {
+      var newIndex = $(this).data('index');
+      updateLightbox(allPhotosData, newIndex); // Mise à jour de la lightbox avec le nouvel index
+    });
+
+    lightbox.find('#lightbox-close, .lightbox-overlay').on('click', function () {
+      lightbox.fadeOut(300);
+      lightboxPhotoContent.fadeOut(300);
+      lightboxFooterLeft.fadeOut(300);
+      lightboxFooterRight.fadeOut(300);
+    });
+
+    function updateLightbox(allPhotosData, index) {
       var photoData = allPhotosData[index];
 
       lightboxPhotoContent.fadeOut(300, function () {
@@ -150,15 +195,15 @@
         lightboxFooterRight.text(photoData.category).fadeIn(300);
       });
 
-      setNavigation(index);
+      setNavigation(index, allPhotosData.length); // Mise à jour de la navigation avec la longueur actuelle
     }
 
-    function setNavigation(index) {
-      var prevIndex = index > 0 ? index - 1 : allPhotosData.length - 1;
-      var nextIndex = index < allPhotosData.length - 1 ? index + 1 : 0;
+    function setNavigation(currentIndex, totalPhotos) {
+      var prevIndex = currentIndex > 0 ? currentIndex - 1 : totalPhotos - 1;
+      var nextIndex = currentIndex < totalPhotos - 1 ? currentIndex + 1 : 0;
 
-      lightbox.find('#lightbox-prev').data('index', prevIndex);
-      lightbox.find('#lightbox-next').data('index', nextIndex);
+      $('#lightbox-prev').data('index', prevIndex);
+      $('#lightbox-next').data('index', nextIndex);
     }
   }
 })(jQuery);

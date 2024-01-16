@@ -59,12 +59,3 @@ get_header(); ?>
 </div>
 
 <?php get_footer(); ?>
-
-<?php
-/* 
-  $data_single_nav_args = array(
-    'meta_refrence' => $meta_refrence,
-  );
-  get_template_part('templates_parts/single/single-photo-navigation', null, $data_single_nav_args);  
-*/
-?>
