@@ -3,23 +3,34 @@
 defined('ABSPATH') or die('Aucun accès direct au script n\'est autorisé.');
 
 extract($args); ?>
-
 <form class="search-bar" id="filter-form">
   <div class="filtres">
     <!-- Liste personnalisée pour les catégories -->
     <div class="custom-select" id="categorie-select">
-      <div class="selected">Catégories</div>
+      <div class="selected">
+        <span class="selected-text">Catégories</span>
+        <!-- Ajouts des chevrons au click -->
+        <span class="chevron-updown chevron-down"></span>
+      </div>
     </div>
 
     <!-- Liste personnalisée pour les formats -->
     <div class="custom-select" id="format-select">
-      <div class="selected">Formats</div>
+      <div class="selected">
+        <span class="selected-text">Formats</span>
+        <!-- Ajouts des chevrons au click -->
+        <span class="chevron-updown chevron-down"></span>
+      </div>
     </div>
   </div>
 
   <!-- Liste personnalisée pour le tri -->
   <div class="custom-select" id="order-select">
-    <div class="selected">Triés par</div>
+    <div class="selected">
+      <span class="selected-text">Triés par</span>
+      <!-- Ajouts des chevrons au click -->
+      <span class="chevron-updown chevron-down"></span>
+    </div>
   </div>
 </form>
 

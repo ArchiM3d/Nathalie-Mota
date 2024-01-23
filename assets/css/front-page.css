@@ -89,6 +89,7 @@ div#message-photos {
 }
 
 .custom-select .selected {
+  display: flex;
   border-radius: 8px;
   padding: 11px 18px;
   font-size: 12px;
@@ -96,6 +97,10 @@ div#message-photos {
   line-height: 18px;
   letter-spacing: 0.03em;
   text-transform: uppercase;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: nowrap;
 }
 
 .custom-select.open {
@@ -104,6 +109,24 @@ div#message-photos {
 
 .custom-select.open .selected {
   border-radius: 8px 8px 0px 0px;
+}
+
+/* Ajouts des chevrons */
+.chevron-updown {
+  background-repeat: no-repeat;
+  background-position: right center;
+  display: block;
+  box-sizing: border-box;
+  width: 12px;
+  height: 12px;
+}
+
+.chevron-updown.chevron-down::after {
+  content: url('../images/icons/chevron_down.png');
+}
+
+.chevron-updown.chevron-up::after {
+  content: url('../images/icons/chevron_up.png');
 }
 
 .options {

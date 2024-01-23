@@ -61,6 +61,9 @@
       $(optionsFiltre).css({ top: topOffsetOption, left: leftOffsetOption }).toggle();
 
       $(selectFiltre).toggleClass('open');
+      /* Ajouts des chevrons au click */
+      $(this).find('.chevron-updown').toggleClass('chevron-up');
+      $(this).find('.chevron-updown').toggleClass('chevron-down');
     });
 
     // Stocker le texte par défaut de chaque sélecteur dans un attribut data
@@ -73,7 +76,7 @@
       var value = $(this).data('value');
       var optionsId = $(this).closest('.options').attr('id');
       var selectFiltre = '#' + optionsId.replace('-options', '-select');
-  
+
       // Vérifier si l'option cliquée est l'option vide
       if (value === '') {
         // Récupérer et utiliser le texte par défaut du sélecteur
@@ -85,12 +88,12 @@
         // Sinon, utiliser le texte de l'option cliquée
         $(selectFiltre).find('.selected').text($(this).text()).data('value', value);
       }
-  
+
       // Fermer le menu d'options et charger les photos
       $(this).parent().hide();
       $('#charge-all-photos').data('page', 1);
       chargerAjax(1);
-  
+
       // Enlever la classe 'open' du sélecteur
       $(selectFiltre).removeClass('open');
     });
